@@ -6,12 +6,12 @@
  * CCM相关寄存器地址
  */
 #define CCM_CCGR0       *((volatile unsigned int*))
-#define CCM_CCGR0       *((volatile unsigned int*))
-#define CCM_CCGR0       *((volatile unsigned int*))
-#define CCM_CCGR0       *((volatile unsigned int*))
-#define CCM_CCGR0       *((volatile unsigned int*))
-#define CCM_CCGR0       *((volatile unsigned int*))
-#define CCM_CCGR0       *((volatile unsigned int*))
+#define CCM_CCGR1       *((volatile unsigned int*))
+#define CCM_CCGR2       *((volatile unsigned int*))
+#define CCM_CCGR3       *((volatile unsigned int*))
+#define CCM_CCGR4       *((volatile unsigned int*))
+#define CCM_CCGR5       *((volatile unsigned int*))
+#define CCM_CCGR6       *((volatile unsigned int*))
 
 /*
  * IOMUX相关寄存器地址
