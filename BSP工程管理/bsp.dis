@@ -10,7 +10,7 @@ Disassembly of section .text:
 87800008:	e3800013 	orr	r0, r0, #19
 8780000c:	e129f000 	msr	CPSR_fc, r0
 87800010:	e51fd000 	ldr	sp, [pc, #-0]	; 87800018 <_start+0x18>
-87800014:	ea000035 	b	878000f0 <__main_from_arm>
+87800014:	ea00004d 	b	87800150 <__main_from_arm>
 87800018:	80200000 	eorhi	r0, r0, r0
 8780001c:	00001e41 	andeq	r1, r0, r1, asr #28
 87800020:	61656100 	cmnvs	r5, r0, lsl #2
@@ -106,23 +106,66 @@ Disassembly of section .text:
 878000ec:	4770      	bx	lr
 878000ee:	bf00      	nop
 
-878000f0 <__main_from_arm>:
-878000f0:	e51ff004 	ldr	pc, [pc, #-4]	; 878000f4 <__main_from_arm+0x4>
-878000f4:	878000f9 			; <UNDEFINED> instruction: 0x878000f9
+878000f0 <BEEP_INIT>:
+878000f0:	210c      	movs	r1, #12
+878000f2:	2250      	movs	r2, #80	; 0x50
+878000f4:	f44f 4340 	mov.w	r3, #49152	; 0xc000
+878000f8:	b410      	push	{r4}
+878000fa:	f2c0 230a 	movt	r3, #522	; 0x20a
+878000fe:	2405      	movs	r4, #5
+87800100:	f2c0 2229 	movt	r2, #553	; 0x229
+87800104:	f2c0 2129 	movt	r1, #553	; 0x229
+87800108:	f241 00b0 	movw	r0, #4272	; 0x10b0
+8780010c:	600c      	str	r4, [r1, #0]
+8780010e:	6010      	str	r0, [r2, #0]
+87800110:	685a      	ldr	r2, [r3, #4]
+87800112:	f85d 4b04 	ldr.w	r4, [sp], #4
+87800116:	f042 0202 	orr.w	r2, r2, #2
+8780011a:	605a      	str	r2, [r3, #4]
+8780011c:	681a      	ldr	r2, [r3, #0]
+8780011e:	f042 0202 	orr.w	r2, r2, #2
+87800122:	601a      	str	r2, [r3, #0]
+87800124:	4770      	bx	lr
+87800126:	bf00      	nop
+
+87800128 <BEEP_ON>:
+87800128:	f44f 4340 	mov.w	r3, #49152	; 0xc000
+8780012c:	2200      	movs	r2, #0
+8780012e:	f2c0 230a 	movt	r3, #522	; 0x20a
+87800132:	6819      	ldr	r1, [r3, #0]
+87800134:	601a      	str	r2, [r3, #0]
+87800136:	4770      	bx	lr
+
+87800138 <BEEP_OFF>:
+87800138:	f44f 4340 	mov.w	r3, #49152	; 0xc000
+8780013c:	f2c0 230a 	movt	r3, #522	; 0x20a
+87800140:	681a      	ldr	r2, [r3, #0]
+87800142:	f042 0202 	orr.w	r2, r2, #2
+87800146:	601a      	str	r2, [r3, #0]
+87800148:	4770      	bx	lr
+8780014a:	bf00      	nop
+8780014c:	0000      	movs	r0, r0
+	...
+
+87800150 <__main_from_arm>:
+87800150:	e51ff004 	ldr	pc, [pc, #-4]	; 87800154 <__main_from_arm+0x4>
+87800154:	87800159 			; <UNDEFINED> instruction: 0x87800159
 
 Disassembly of section .text.startup:
 
-878000f8 <main>:
-878000f8:	b508      	push	{r3, lr}
-878000fa:	f7ff ff9f 	bl	8780003c <clk_enable>
-878000fe:	f7ff ffcb 	bl	87800098 <IO_init>
-87800102:	f7ff ffeb 	bl	878000dc <LED_OFF>
-87800106:	f44f 70fa 	mov.w	r0, #500	; 0x1f4
-8780010a:	f7ff ffb1 	bl	87800070 <delay>
-8780010e:	f7ff ffdb 	bl	878000c8 <LED_ON>
-87800112:	f44f 70fa 	mov.w	r0, #500	; 0x1f4
-87800116:	f7ff ffab 	bl	87800070 <delay>
-8780011a:	e7f2      	b.n	87800102 <main+0xa>
+87800158 <main>:
+87800158:	b508      	push	{r3, lr}
+8780015a:	f7ff ff6f 	bl	8780003c <clk_enable>
+8780015e:	f7ff ff9b 	bl	87800098 <IO_init>
+87800162:	f7ff ffbb 	bl	878000dc <LED_OFF>
+87800166:	f7ff ffdf 	bl	87800128 <BEEP_ON>
+8780016a:	f44f 70fa 	mov.w	r0, #500	; 0x1f4
+8780016e:	f7ff ff7f 	bl	87800070 <delay>
+87800172:	f7ff ffa9 	bl	878000c8 <LED_ON>
+87800176:	f7ff ffdf 	bl	87800138 <BEEP_OFF>
+8780017a:	f44f 70fa 	mov.w	r0, #500	; 0x1f4
+8780017e:	f7ff ff77 	bl	87800070 <delay>
+87800182:	e7ee      	b.n	87800162 <main+0xa>
 
 Disassembly of section .comment:
 
