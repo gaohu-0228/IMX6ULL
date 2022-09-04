@@ -54,3 +54,6 @@ $(ODIR)/%.o : $(LEDDIR)/%.c
 
 $(ODIR)/%.o : $(BEEPDIR)/%.c
 	$(CC) $(CCFLAGS) -o $@ $<
+
+$(ODIR)/%.o : $(KEYDIR)/%.c
+	$(CC) $(CCFLAGS) -o $@ $<
