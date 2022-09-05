@@ -14,7 +14,7 @@ typedef struct{
 } gpio_config;
 
 void GPIO_INIT(GPIO_Type *base, int pin, gpio_config *config);
-void GPIO_READ(GPIO_Type *base, int pin);
+int GPIO_READ(GPIO_Type *base, int pin);
 void GPIO_WRITE(GPIO_Type *base, int pin, int value);
 
 

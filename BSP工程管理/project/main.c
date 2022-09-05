@@ -18,6 +18,7 @@ int main()
 
     while(1)
     {
+        BEEP_ON();
         if (KEY_SCAN() == 1)
         {
             LED_ON();

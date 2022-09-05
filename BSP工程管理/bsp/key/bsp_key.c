@@ -22,16 +22,16 @@ int KEY_SCAN(void)
     int ret = 0;
     static flag = 1;
 
-    if(flag == 1 && gpio_read(GPIO1, 18) == 0)
+    if(flag == 1 && GPIO_READ(GPIO1, 18) == 0)
     {
         delay(10);
         flag = 0;
-        if(gpio_read(GPIO1, 18) == 0)
+        if(GPIO_READ(GPIO1, 18) == 0)
         {
             return 1;
         }
     }
-    else if(gpio_read(GPIO1, 18) == 1)
+    else if(GPIO_READ(GPIO1, 18) == 1)
     {
         ret = 0;
         flag = 1;

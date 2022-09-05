@@ -12,8 +12,9 @@ CLKDIR = $(BDIR)/clk
 DELAYDIR = $(BDIR)/delay
 LEDDIR = $(BDIR)/led
 BEEPDIR = $(BDIR)/beep
+GPIODIR = $(BDIR)/gpio
 KEYDIR = $(BDIR)/key
-ALL_DIR = -I$(IDIR) -I$(PDIR) -I$(CLKDIR) -I$(DELAYDIR) -I$(LEDDIR) -I$(BEEPDIR) -I$(KEYDIR)
+ALL_DIR = -I$(IDIR) -I$(PDIR) -I$(CLKDIR) -I$(DELAYDIR) -I$(LEDDIR) -I$(BEEPDIR) -I$(KEYDIR) -I$(GPIODIR)
 
 CCFLAGS = -Wall -nostdlib -c -O2 $(ALL_DIR)
 
@@ -24,6 +25,7 @@ LIBAPI_OBJ =$(ODIR)/start.o \
 			$(ODIR)/bsp_delay.o \
 			$(ODIR)/bsp_led.o \
 			$(ODIR)/bsp_beep.o \
+			$(ODIR)/bsp_gpio.o \
 			$(ODIR)/bsp_key.o
 ###############################################
 bsp.bin : $(LIBAPI_OBJ)
@@ -53,6 +55,9 @@ $(ODIR)/%.o : $(LEDDIR)/%.c
 	$(CC) $(CCFLAGS) -o $@ $<
 
 $(ODIR)/%.o : $(BEEPDIR)/%.c
+	$(CC) $(CCFLAGS) -o $@ $<
+
+$(ODIR)/%.o : $(GPIODIR)/%.c
 	$(CC) $(CCFLAGS) -o $@ $<
 
 $(ODIR)/%.o : $(KEYDIR)/%.c
