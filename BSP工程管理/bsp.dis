@@ -217,7 +217,7 @@ Disassembly of section .text:
 
 878001e0 <KEY_SCAN>:
 878001e0:	b538      	push	{r3, r4, r5, lr}
-878001e2:	f240 2484 	movw	r4, #644	; 0x284
+878001e2:	f240 246c 	movw	r4, #620	; 0x26c
 878001e6:	f2c8 7480 	movt	r4, #34688	; 0x8780
 878001ea:	6823      	ldr	r3, [r4, #0]
 878001ec:	2b01      	cmp	r3, #1
@@ -264,24 +264,17 @@ Disassembly of section .text.startup:
 8780024e:	f7ff ff23 	bl	87800098 <IO_init>
 87800252:	f7ff ff4d 	bl	878000f0 <BEEP_INIT>
 87800256:	f7ff ffa7 	bl	878001a8 <KEY_INIT>
-8780025a:	f7ff ff65 	bl	87800128 <BEEP_ON>
-8780025e:	f7ff ffbf 	bl	878001e0 <KEY_SCAN>
-87800262:	2801      	cmp	r0, #1
-87800264:	d009      	beq.n	8780027a <main+0x32>
-87800266:	f7ff ff39 	bl	878000dc <LED_OFF>
-8780026a:	f7ff ff65 	bl	87800138 <BEEP_OFF>
-8780026e:	f7ff ff5b 	bl	87800128 <BEEP_ON>
-87800272:	f7ff ffb5 	bl	878001e0 <KEY_SCAN>
-87800276:	2801      	cmp	r0, #1
-87800278:	d1f5      	bne.n	87800266 <main+0x1e>
-8780027a:	f7ff ff25 	bl	878000c8 <LED_ON>
-8780027e:	f7ff ff53 	bl	87800128 <BEEP_ON>
-87800282:	e7ea      	b.n	8780025a <main+0x12>
+8780025a:	f7ff ffc1 	bl	878001e0 <KEY_SCAN>
+8780025e:	2801      	cmp	r0, #1
+87800260:	d1fb      	bne.n	8780025a <main+0x12>
+87800262:	f7ff ff31 	bl	878000c8 <LED_ON>
+87800266:	f7ff ff5f 	bl	87800128 <BEEP_ON>
+8780026a:	e7f6      	b.n	8780025a <main+0x12>
 
 Disassembly of section .data:
 
-87800284 <flag.7399>:
-87800284:	00000001 	andeq	r0, r0, r1
+8780026c <flag.7399>:
+8780026c:	00000001 	andeq	r0, r0, r1
 
 Disassembly of section .comment:
 
