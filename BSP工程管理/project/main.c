@@ -18,10 +18,11 @@ int main()
 
     while(1)
     {
-        if (KEY_SCAN() == 1)
-        {
             LED_ON();
             BEEP_ON();
-        }
+            delay(500);
+            LED_OFF();
+            BEEP_OFF();
+            delay(500);
     }
 }
