@@ -14,6 +14,7 @@ _start:
     ldr pc, =SVC_Handler        /*SVC中断*/
     ldr pc, =PrefAbort_Handler  /*指令预取中止中断*/
     ldr pc, =DataAbort_Handler  /*数据访问中止中断*/
+    ldr pc, =NotUsed_Handler    /*未使用的中断*/
     ldr pc, =IRQ_Handler        /*IRQ中断*/
     ldr pc, =FIQ_Handler        /*FIQ中断*/
 
@@ -104,6 +105,13 @@ DataAbort_Handler:
 
 /*IRQ中断*/
 IRQ_Handler:
+    push {lr}           /*保存lr地址*/
+    push {r0-r2, r12}   /*保存r0-r3, r12寄存器*/
+
+    mrs r0, spsr        /*读取SPSR寄存器*/
+    push {r0}           /*保存SPSR寄存器*/
+
+    mcr p15, 4, c15, c0, 0  /*将CP15的C0内的值读取到R1寄存器中*/
 
 
 
