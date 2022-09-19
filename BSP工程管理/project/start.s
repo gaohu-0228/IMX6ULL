@@ -103,6 +103,11 @@ DataAbort_Handler:
     ldr r0, =DataAbort_Handler
     bx r0
 
+/*未使用的中断*/
+NotUsed_Handler:
+    ldr r0, =NotUsed_Handler
+    bx r0
+
 /*IRQ中断*/
 IRQ_Handler:
     push {lr}           /*保存lr地址*/
