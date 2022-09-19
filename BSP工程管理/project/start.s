@@ -29,7 +29,7 @@ Reset_Handler:
     bic r0, r0, #(0x01<<2)      /*清除c1寄存器bit2位(C位)，关闭DCache*/
     bic r0, r0, #0x02           /*清除c1寄存器bit1位(A位)，关闭内存对齐检查*/
     bic r0, r0, #0x01           /*清除c1寄存器bit1位(M位)，关闭MMU*/
-    MCR p15, 0, r0, c1, c0, 0
+    mcr p15, 0, r0, c1, c0, 0   /*将r0的值写入到cp15的c1中*/
 
     /*bss段清零*/
     ldr r0, _bss_start
@@ -111,13 +111,31 @@ IRQ_Handler:
     mrs r0, spsr        /*读取SPSR寄存器*/
     push {r0}           /*保存SPSR寄存器*/
 
-    mcr p15, 4, c15, c0, 0  /*将CP15的C0内的值读取到R1寄存器中*/
+    //MRC p15, 4, <Rt>, c15, c0, 0; Read Configuration Base Address Register
+    mcr p15, 4, r1, c15, c0, 0  /*将CP15的C0内的值读取到R1寄存器中*/
 
+    add r1, r1, #0x2000         /*GIC控制器基地址加上0x2000, 得到CPU接口端基地址*/
+    ldr r0, [r1, #0x000C]       /*CPU接口端基地址加上0x000C, 得到GICC_IAR寄存器*/
 
+    push {r0, r1}               /*保存r0, r1*/
 
+    cps #0x13                   /*在特权模式下, 把cpsr寄存器的m[4:0]修改为0x13, 让处理器进入svc模式*/
 
+    push {lr}                   /*保存svc模式下的lr寄存器*/
 
-    
+    ldr r2, =system_irqhandler  /*将c语言中断处理函数的地址加载到r2寄存器中*/
+    blx r2                      /*跳转到c语言中断处理函数, 带有一个参数， 保存到r0寄存器中*/
+
+    pop {lr}                    /*执行完c语言中断处理函数, lr出栈*/
+    cps #0x12                   /*进入irq模式*/
+    pop {r0, r1}                /*寄存器r0, r1出栈*/
+    str r0, [r1, #0x10]         /*中断执行完成后, 将r0的值写入到GICC_EOIR中*/
+
+    pop {r0}                    /*寄存器r0出栈*/
+    msr spsr_cxsf, r0           /*回复spsr状态*/
+    pop {r0-r3, r12}            /*寄存器r0-r3, r12出栈*/
+    pop {r12}                   /*寄存器lr出栈*/
+    subs pc, lr, #0x04          /*将寄存器lr中的值-4然后保存到pc中*/
 
 /*FIQ中断*/
 FIQ_Handler:
