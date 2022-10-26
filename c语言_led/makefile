@@ -1,14 +1,20 @@
 objs := start.o main.o
 
-led.bin : $(objs)
-	arm-linux-gnueabihf-ld -Timx6ull.lds $^ -o led.elf
-	arm-linux-gnueabihf-objcopy -O binary -S -g led.elf $@
-	arm-linux-gnueabihf-objdump -D led.elf > led.dis
+CC_PATH = ~/gcc-arm/bin/
 
-%.o : %.s
-	arm-linux-gnueabihf-gcc -Wall -nostdlib -O2 -c $< -o $@
-%.o : %.c
-	arm-linux-gnueabihf-gcc -Wall -nostdlib -O2 -c $< -o $@
+ledc.bin:$(objs)
+	$(CC_PATH)arm-linux-gnueabihf-ld -Ttext 0X87800000 -o ledc.elf $^
+	$(CC_PATH)arm-linux-gnueabihf-objcopy -O binary -S ledc.elf $@
+	$(CC_PATH)arm-linux-gnueabihf-objdump -D -m arm ledc.elf > ledc.dis
+
+%.o:%.s
+	$(CC_PATH)arm-linux-gnueabihf-gcc -Wall -nostdlib -c -o $@ $<
+
+%.o:%.S
+	$(CC_PATH)arm-linux-gnueabihf-gcc -Wall -nostdlib -c -o $@ $<
+
+%.o:%.c
+	$(CC_PATH)arm-linux-gnueabihf-gcc -Wall -nostdlib -c -o $@ $<
 
 clean:
-	rm -rf *.o led.bin led.elf led.dis
+	rm -rf *.o ledc.bin ledc.elf ledc.dis
