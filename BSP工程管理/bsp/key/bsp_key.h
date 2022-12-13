@@ -3,7 +3,7 @@
 
 #include "imx6ull.h"
 
-void KEY_INIT(void);
-int KEY_SCAN(void);
+void KEY_INTINIT(void);
+void key_irqhandler(void);
 
 #endif

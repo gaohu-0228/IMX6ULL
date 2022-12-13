@@ -13,7 +13,11 @@ typedef struct sys_irq_handle
     void *param; /*中断处理函数参数*/
 } sys_irq_handle_t;
 
-
+void int_init(void);
+void system_irqtable_init(void);
+void system_register_irqhandler(IRQn_Type irq, system_irq_handler handler, void *Param);
+void system_irqhandler(unsigned int giccIar);
+void default_irqhandler(unsigned int giccIar, void *param);
 
 
 

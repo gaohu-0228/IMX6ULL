@@ -15,7 +15,8 @@ static sys_irq_handle_t irqTable[NUMBER_OF_INT_VECTORS];
  */
 void int_init(void)
 {
-
+    GIC_Init();
+    system_irqtable_init();
 }
 
 /*

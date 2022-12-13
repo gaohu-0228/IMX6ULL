@@ -25,5 +25,17 @@ void BEEP_ON(void)
 
 void BEEP_OFF(void)
 {
-    GPIO5->DR |= (1<<1);
+    GPIO5->DR &= (0<<1);
+}
+
+void BEEP_SWITCH(uint32_t state)
+{
+    if (state == 1)
+    {
+        GPIO5->DR &= (0<<1);
+    }
+    else
+    {
+        GPIO5->DR &= (0<<1);
+    }
 }
