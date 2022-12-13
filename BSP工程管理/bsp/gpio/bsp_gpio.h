@@ -8,9 +8,20 @@ typedef enum{
     Gpio_Output = 1,
 } gpio_direction;
 
+typedef enum gpio_interrupt_mode
+{
+    kGPIO_NoIntmode = 0,
+    kGPIO_IntLowLevel = 1,
+    kGPIO_IntHighLevel = 2,
+    kGPIO_IntRisingEdge = 3,
+    kGPIO_IntFallingEdge = 4,
+    KGPIO_IntRisingOrFallingEdge = 5,
+} gpio_interrupt_mode_t;
+
 typedef struct{
     gpio_direction direction;
     uint8_t outputLogic;
+    gpio_interrupt_mode_t interruptMdoe;
 } gpio_config;
 
 void GPIO_INIT(GPIO_Type *base, int pin, gpio_config *config);

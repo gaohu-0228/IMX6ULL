@@ -14,7 +14,8 @@ LEDDIR = $(BDIR)/led
 BEEPDIR = $(BDIR)/beep
 GPIODIR = $(BDIR)/gpio
 KEYDIR = $(BDIR)/key
-ALL_DIR = -I$(IDIR) -I$(PDIR) -I$(CLKDIR) -I$(DELAYDIR) -I$(LEDDIR) -I$(BEEPDIR) -I$(KEYDIR) -I$(GPIODIR)
+INTDIR = $(BDIR)/int
+ALL_DIR = -I$(IDIR) -I$(PDIR) -I$(CLKDIR) -I$(DELAYDIR) -I$(LEDDIR) -I$(BEEPDIR) -I$(KEYDIR) -I$(GPIODIR) -I$(INTDIR)
 
 CCFLAGS = -Wall -nostdlib -c -O2 $(ALL_DIR)
 
@@ -61,4 +62,7 @@ $(ODIR)/%.o : $(GPIODIR)/%.c
 	$(CC) $(CCFLAGS) -o $@ $<
 
 $(ODIR)/%.o : $(KEYDIR)/%.c
+	$(CC) $(CCFLAGS) -o $@ $<
+
+$(ODIR)/%.o : $(INTDIR)/%.c
 	$(CC) $(CCFLAGS) -o $@ $<
