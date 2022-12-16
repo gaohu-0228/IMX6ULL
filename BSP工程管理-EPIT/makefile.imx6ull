@@ -1,0 +1,5 @@
+CC := arm-linux-gnueabihf-gcc
+LD := arm-linux-gnueabihf-ld
+OBJCOPY := arm-linux-gnueabihf-objcopy
+OBJDUMP := arm-linux-gnueabihf-objdump
+

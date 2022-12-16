@@ -3,3 +3,25 @@ LD := arm-linux-gnueabihf-ld
 OBJCOPY := arm-linux-gnueabihf-objcopy
 OBJDUMP := arm-linux-gnueabihf-objdump
 
+#头文件路径
+INCDIRS := imx6ull \
+           bsp/beep \
+           bsp/clk \
+           bsp/delay \
+           bsp/gpio \
+           bsp/int \
+           bsp/key \
+           bsp/led 
+
+#源文件路径
+SRCDIRS := project \
+           bsp/beep \
+           bsp/clk \
+           bsp/delay \
+           bsp/gpio \
+           bsp/int \
+           bsp/key \
+           bsp/led 
+
+INCLUDE := $(patsubst %, -I %, $(INCDIRS))
+
