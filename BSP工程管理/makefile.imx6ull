@@ -45,8 +45,11 @@ VPATH := $(SRCDIRS)
 
 bsp.bin : $(OBJS)
     $(LD) -Timx6ul.lds -o bsp.elf $^
+    @echo ------ make bsp.elf OK. ------
     $(OBJCOPY) -O binary -S bsp.elf $@
+    @echo ------ make $@ OK. ------
     $(OBJDUMP) -D -m arm bsp.elf > bsp.dis
+    @echo ------ make bsp.dis OK. ------
 
 $(SOBJS) : obj/%.o : %.S
     $(CC) -Wall -nostdlib -c -O2 $(INCLUDE) -o $@ $<
