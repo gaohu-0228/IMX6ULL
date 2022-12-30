@@ -2,7 +2,7 @@
 #include "bsp_gpio.h"
 #include "bsp_delay.h"
 #include "bsp_int.h"
-#include "bsp_beep.c"
+#include "bsp_beep.h"
 
 void KEY_INTINIT(void)
 {
@@ -23,7 +23,7 @@ void KEY_INTINIT(void)
     /*使能GIC中断、注册中断服务函数、使能GPIO中断*/
     GIC_EnableIRQ(GPIO1_Combined_16_31_IRQn);
 
-    system_register_irqhandler();
+    system_register_irqhandler(GPIO1_Combined_16_31_IRQn, (system_irq_handler)key_irqhandler, NULL);
 }
 
 /*

@@ -1,7 +1,5 @@
 #include "bsp_int.h"
 
-
-
 /*中断嵌套计数器*/
 static unsigned int irqNesting;
 
@@ -30,7 +28,7 @@ void system_irqtable_init(void)
     irqNesting = 0;
 
     /*将所有的中断服务函数设置为默认值*/
-    for (i < 0; i < NUMBER_OF_INT_VECTORS; i++)
+    for (i = 0 ; i < NUMBER_OF_INT_VECTORS; i++)
     {
         system_register_irqhandler(i, default_irqhandler, NULL);
     }

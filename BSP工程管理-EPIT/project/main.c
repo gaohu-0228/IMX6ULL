@@ -13,16 +13,9 @@ int main()
     IO_init();
     /*蜂鸣器初始化*/
     BEEP_INIT();
-    /*按键初始化*/
-    KEY_INIT();
 
     while(1)
     {
-            LED_ON();
-            BEEP_ON();
-            delay(500);
-            LED_OFF();
-            BEEP_OFF();
-            delay(500);
+
     }
 }

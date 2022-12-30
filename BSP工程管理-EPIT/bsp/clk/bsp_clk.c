@@ -21,7 +21,7 @@ void imx6ull_clkinit(void)
 	 * 2.pll_sw_clk选择的是pll_main_clk，则先切换到step_clk
 	 * 3.调整pll_main_clk，然后pll_sw_clk切换到pll_main_clk
 	 */
-	if ((CCM->CCSR >> 2) & 0X1 == 0)
+	if (((CCM->CCSR >> 2) & 0X1) == 0)
 	{
 		CCM->CCSR &= ~(1<<8);
 		CCM->CCSR |= (1<<2);
