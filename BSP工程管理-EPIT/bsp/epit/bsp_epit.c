@@ -8,7 +8,7 @@
  * @param - value : 倒计数值。
  * @return : 无
  */
-void EpitInit(unsigned int frac, unsigned int value)
+void Epit_Init(unsigned int frac, unsigned int value)
 {
     if(frac > 0xfff)
         frac = 0xfff;

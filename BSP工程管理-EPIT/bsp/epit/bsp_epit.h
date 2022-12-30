@@ -3,7 +3,7 @@
 
 #include "imx6ull.h"
 
-void EpitInit(unsigned int frac, unsigned int value);
+void Epit_Init(unsigned int frac, unsigned int value);
 
 
 

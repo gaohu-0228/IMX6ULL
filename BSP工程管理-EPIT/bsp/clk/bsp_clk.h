@@ -6,6 +6,6 @@
 
 void clk_enable(void);
 
-
+void imx6ull_clkinit(void);
 
 #endif
