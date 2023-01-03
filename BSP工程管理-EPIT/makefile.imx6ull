@@ -29,15 +29,15 @@ INCLUDE := $(patsubst %, -I %, $(INCDIRS))
 
 #foreach函数 (dir)代表(SRCDIRS)中么个空格分割的字符串
 #wildcard 函数代表按通配符寻找 $(dir)目录下的所有文件
-SFILES  := $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.S))
+SFILES  := $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.s))
 CFILES  := $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.c))
 
 #notdir函数去除目录路径
 SFILENDIR := $(notdir $(SFILES))
 CFILENDIR := $(notdir $(CFILES))
 
-SOBJS := $(patsubst %, obj/%, $(SFILENDIR:.S=.o))
-COBJS := %(patsubst %, obj/%, $(SFILENDIR:.c=.o))
+SOBJS := $(patsubst %, obj/%, $(SFILENDIR:.s=.o))
+COBJS := $(patsubst %, obj/%, $(CFILENDIR:.c=.o))
 
 OBJS := $(SOBJS)$(COBJS)
 
@@ -46,18 +46,18 @@ VPATH := $(SRCDIRS)
 .PHONY: clean
 
 bsp.bin : $(OBJS)
-	$(LD) -Timx6ul.lds -o bsp.elf $^
+	$(LD) -Timx6ull.lds -o bsp.elf $^
 	@echo ------ make bsp.elf OK. ------
 	$(OBJCOPY) -O binary -S bsp.elf $@
 	@echo ------ make $@ OK. ------
 	$(OBJDUMP) -D -m arm bsp.elf > bsp.dis
 	@echo ------ make bsp.dis OK. ------
 
-$(SOBJS) : obj/%.o : %.S
+$(SOBJS) : obj/%.o : %.s
 	$(CC) -Wall -nostdlib -c -O2 $(INCLUDE) -o $@ $<
 
 $(COBJS) : obj/%.o : %.c
 	$(CC) -Wall -nostdlib -c -O2 $(INCLUDE) -o $@ $<
 
 clean :
-	rm -rf bsp.elf bsp.dis bsp.bin $(SOBJS) $(COBJS)
+	rm -rf bsp.elf bsp.dis bsp.bin obj/*
