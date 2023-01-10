@@ -12,7 +12,8 @@ INCDIRS := imx6ull \
 		   bsp/int \
 		   bsp/key \
 		   bsp/led \
-		   bsp/epit
+		   bsp/epit \
+		   bsp/filter
 
 #源文件路径
 SRCDIRS := project \
@@ -23,7 +24,8 @@ SRCDIRS := project \
 		   bsp/int \
 		   bsp/key \
 		   bsp/led \
-		   bsp/epit
+		   bsp/epit \
+		   bsp/filter
 
 INCLUDE := $(patsubst %, -I %, $(INCDIRS))
 

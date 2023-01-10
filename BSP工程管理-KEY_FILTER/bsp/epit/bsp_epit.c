@@ -4,8 +4,7 @@
 
 
 /*
- * @description : 初始化 EPIT 定时器.
- * EPIT 定时器是 32 位向下计数器,时钟源使用 ipg=66Mhz
+ * @description : 初始化 EPIT 定时器. EPIT 定时器是 32 位向下计数器,时钟源使用 ipg=66Mhz
  * @param – frac: 分频值，范围为 0~4095，分别对应 1~4096 分频。
  * @param - value : 倒计数值。
  * @return : 无

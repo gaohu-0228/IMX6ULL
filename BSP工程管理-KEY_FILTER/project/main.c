@@ -5,10 +5,13 @@
 #include "bsp_key.h"
 #include "bsp_int.h"
 #include "bsp_epit.h"
+#include "bsp_filter.h"
 
 
 int main()
 {
+    unsigned char state = 0;
+
     /*中断初始化*/
     int_init();
     /*系统时钟初始化*/
@@ -20,12 +23,12 @@ int main()
     /*蜂鸣器初始化*/
     BEEP_INIT();
     /*按键初始化*/
-    KEY_INTINIT();
-    /*定时器初始化*/
-    Epit_Init(0, 66000000/2);
+    filterkey_init();
 
     while(1)
     {
+        state = !state;
+        LED_SWITCH(GPIO1, state);
         delay(500);
     }
 }

@@ -60,10 +60,10 @@ void GPIO_INTCONFIG(GPIO_Type *base, int pin, gpio_interrupt_mode_t mode)
             *icr &= ~(3 << (2 * icrShift)); 
             break;
         case kGPIO_IntHighLevel : 
-            *icr &= (*icr & (~(3 << (2 * icrShift))) || (1 << (2 * icrShift)); 
+            *icr &= (*icr & (~(3 << (2 * icrShift))) || (1 << (2 * icrShift))); 
             break;
         case kGPIO_IntRisingEdge : 
-            *icr &= (*icr & (~(3 << (2 * icrShift))) || (2 << (2 * icrShift)); 
+            *icr &= (*icr & (~(3 << (2 * icrShift))) || (2 << (2 * icrShift))); 
             break;
         case kGPIO_IntFallingEdge : 
             *icr |= ~(3 << (2 * icrShift)); 
